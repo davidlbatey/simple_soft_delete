@@ -1,6 +1,9 @@
-# See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'simple_soft_delete'
 require 'active_record'
+require 'database_cleaner'
+
 require File.expand_path(File.dirname(__FILE__) + '/fixtures/foo')
 
 RSpec.configure do |config|
@@ -16,5 +19,18 @@ RSpec.configure do |config|
   connect('test')
 
   load(File.dirname(__FILE__) + "/schema.rb")
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 
 end
