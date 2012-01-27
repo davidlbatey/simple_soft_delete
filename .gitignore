@@ -1,4 +1,5 @@
 *.gem
+simple_soft_delete.db
 .bundle
 Gemfile.lock
 pkg/*
