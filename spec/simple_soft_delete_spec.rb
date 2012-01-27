@@ -63,4 +63,23 @@ describe SimpleSoftDelete do
   
   end
 
+  context "with uniqueness validations" do
+    
+    it "validates name with the scope undeleted" do
+      Bar.create :name => "chris"
+
+      Bar.create(:name => "chris").should_not be_valid
+      Bar.count.should == 1
+    end
+
+    it "scopes to deleted correctly" do
+      bar = Bar.create :name => "lucius"
+      bar.delete
+ 
+      Bar.create(:name => "lucius").should be_valid
+      Bar.count.should == 1
+    end
+
+  end
+
 end

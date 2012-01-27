@@ -5,6 +5,7 @@ require 'active_record'
 require 'database_cleaner'
 
 require File.expand_path(File.dirname(__FILE__) + '/fixtures/foo')
+require File.expand_path(File.dirname(__FILE__) + '/fixtures/bar')
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
