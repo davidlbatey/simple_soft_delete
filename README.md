@@ -13,19 +13,19 @@ been deleted/destroyed with the following commands:
 Add a deleted column to the model you want to soft delete
 
 ```
-class AddDeletedToModel < ActiveRecord::Migration                 
-  def change                                         
-    add_column :models, :deleted, :boolean, :null => false, :default => false 
-  end                                                                           
+class AddDeletedToModel < ActiveRecord::Migration
+  def change
+    add_column :models, :deleted, :boolean, :null => false, :default => false
+  end
 end
 ```
 
 Add SimpleSoftDelete module to the model
 
 ```
-class Model < ActiveRecord::Base                                                                             
+class Model < ActiveRecord::Base
   include SimpleSoftDelete
-  
+
   # Scope any uniqueness validations
   validates_uniqueness_of :attribute_name, :scope => :deleted
 end
@@ -49,3 +49,7 @@ Model.count => 0
 Model.with_deleted.count => 10
 ```
 *it also works the same for destroy which just aliases their delete counterparts*
+
+## License
+
+Released under the MIT License.
